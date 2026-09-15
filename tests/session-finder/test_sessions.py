@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Tests for skills/resume-table/scripts/sessions.py against the fictional fixtures.
+"""Tests for skills/session-finder/scripts/sessions.py against the fictional fixtures.
 
-Run from the repo root:  python3 -m unittest discover -s tests/resume-table
+Run from the repo root:  python3 -m unittest discover -s tests/session-finder
 """
 import contextlib, importlib.util, io, os, subprocess, sys, unittest
 from unittest import mock
@@ -11,7 +11,7 @@ os.environ["TZ"] = "America/Los_Angeles"  # fixtures and expected times are writ
 if hasattr(time, "tzset"):
     time.tzset()
 HERE = os.path.dirname(os.path.abspath(__file__))
-SCRIPT = os.path.join(HERE, "..", "..", "skills", "resume-table", "scripts", "sessions.py")
+SCRIPT = os.path.join(HERE, "..", "..", "skills", "session-finder", "scripts", "sessions.py")
 sys.path.insert(0, HERE)
 import build_fixtures  # noqa: E402
 

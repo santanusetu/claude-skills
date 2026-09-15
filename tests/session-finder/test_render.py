@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Tests for skills/resume-table/scripts/render.py (the local HTML page).
+"""Tests for skills/session-finder/scripts/render.py (the local HTML page).
 
-Run from the repo root:  python3 -m unittest discover -s tests/resume-table
+Run from the repo root:  python3 -m unittest discover -s tests/session-finder
 """
 import contextlib, importlib.util, io, json, os, re, tempfile, unittest
 from unittest import mock
@@ -11,7 +11,7 @@ os.environ["TZ"] = "America/Los_Angeles"  # fixtures and expected times are writ
 if hasattr(time, "tzset"):
     time.tzset()
 HERE = os.path.dirname(os.path.abspath(__file__))
-SCRIPTS = os.path.join(HERE, "..", "..", "skills", "resume-table", "scripts")
+SCRIPTS = os.path.join(HERE, "..", "..", "skills", "session-finder", "scripts")
 
 
 def load(name):
@@ -120,10 +120,10 @@ class RenderTest(unittest.TestCase):
             with open(fp, "w") as fh:
                 json.dump(self.facts, fh)
             out = io.StringIO()
-            with mock.patch.dict(os.environ, {"CLAUDE_CONFIG_DIR": tmp, "RESUME_TABLE_NO_OPEN": "1"}), \
+            with mock.patch.dict(os.environ, {"CLAUDE_CONFIG_DIR": tmp, "SESSION_FINDER_NO_OPEN": "1"}), \
                  mock.patch.object(render.webbrowser, "open") as opener, contextlib.redirect_stdout(out):
                 render.main(["--facts", fp, "--out", render.default_out()])
-            self.assertTrue(os.path.exists(os.path.join(tmp, "resume-table", "sessions.html")))
+            self.assertTrue(os.path.exists(os.path.join(tmp, "session-finder", "sessions.html")))
             opener.assert_not_called()
 
 

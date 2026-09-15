@@ -6,9 +6,9 @@ Inputs:
   --summaries  JSON written by Claude: {"<session id>": {"about": "...", "stopped": "..."}}
                In both fields **double asterisks** mark emphasis; everything else is escaped.
 
-Output: $CLAUDE_CONFIG_DIR/resume-table/sessions.html (default ~/.claude/...), one
+Output: $CLAUDE_CONFIG_DIR/session-finder/sessions.html (default ~/.claude/...), one
 self-contained file with no network requests. Opens it unless --no-open or
-RESUME_TABLE_NO_OPEN=1 is set.
+SESSION_FINDER_NO_OPEN=1 is set.
 """
 import argparse, base64, html, json, os, re, sys, webbrowser
 
@@ -18,7 +18,7 @@ ASSETS = os.path.join(HERE, "..", "assets")
 
 def default_out():
     base = os.environ.get("CLAUDE_CONFIG_DIR") or os.path.expanduser("~/.claude")
-    return os.path.join(base, "resume-table", "sessions.html")
+    return os.path.join(base, "session-finder", "sessions.html")
 
 
 def rich(text, tag):
@@ -128,7 +128,7 @@ def main(argv=None):
     with open(a.out, "w", encoding="utf-8") as fh:
         fh.write(build(facts, summaries, a.theme))
     print(f"PAGE {os.path.abspath(a.out)}")
-    if not a.no_open and os.environ.get("RESUME_TABLE_NO_OPEN") != "1":
+    if not a.no_open and os.environ.get("SESSION_FINDER_NO_OPEN") != "1":
         opened = webbrowser.open("file://" + os.path.abspath(a.out))
         print("OPENED" if opened else "NOT_OPENED (no browser available; give the user the path)")
     return 0

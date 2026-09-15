@@ -1,20 +1,20 @@
 ---
-name: resume-table
+name: session-finder
 description: Show recent Claude Code sessions for the current folder — a table in chat plus a local HTML page with a copy button per session — covering what each was about, when it started and was last active, where it stopped, whether it is open in a terminal right now, and the exact `claude --resume` command with the full session ID. Use whenever the user asks for their last or recent sessions, past conversations, "what was I working on", which session did X, how to get back into an earlier conversation, or wants to resume or continue one — even if they don't say "table". Read-only.
 license: MIT
 ---
 
-# resume-table
+# session-finder
 
 Help the user find a past Claude Code session and get back into it. They get 2 things: a short table in chat, and a local page in their browser with the last 10 sessions and a copy button on each.
 
-Scripts live in this skill's `scripts/` folder. Work files go in `~/.claude/resume-table/`, or in `$CLAUDE_CONFIG_DIR/resume-table/` if that variable is set.
+Scripts live in this skill's `scripts/` folder. Work files go in `~/.claude/session-finder/`, or in `$CLAUDE_CONFIG_DIR/session-finder/` if that variable is set.
 
 ## 1. Collect the facts
 
 ```bash
-mkdir -p ~/.claude/resume-table
-python3 <skill>/scripts/sessions.py --count 10 --more 0 --json > ~/.claude/resume-table/facts.json
+mkdir -p ~/.claude/session-finder
+python3 <skill>/scripts/sessions.py --count 10 --more 0 --json > ~/.claude/session-finder/facts.json
 ```
 
 - `--project DIR` points at another folder. You don't need to `cd` first: the script walks up to the nearest folder that has sessions, because your shell has often drifted into a subfolder.
@@ -26,7 +26,7 @@ Each session has `first_prompt`, `recent_prompts`, `last_reply`, `started`, `las
 
 ## 2. Write the summaries
 
-For every session in `facts.json`, write 2 short fields to `~/.claude/resume-table/summaries.json`:
+For every session in `facts.json`, write 2 short fields to `~/.claude/session-finder/summaries.json`:
 
 ```json
 {
@@ -46,10 +46,10 @@ For every session in `facts.json`, write 2 short fields to `~/.claude/resume-tab
 ## 3. Render and open the page
 
 ```bash
-python3 <skill>/scripts/render.py --facts ~/.claude/resume-table/facts.json --summaries ~/.claude/resume-table/summaries.json
+python3 <skill>/scripts/render.py --facts ~/.claude/session-finder/facts.json --summaries ~/.claude/session-finder/summaries.json
 ```
 
-The script writes `sessions.html` next to those files and opens it in the default browser, unless `RESUME_TABLE_NO_OPEN=1` is set. The page is 1 self-contained file: it downloads nothing, follows the system's light or dark setting, escapes all text, and gives every row a copy button. Rows without a summary still appear, marked "not summarised". If the output says `NOT_OPENED`, give the user the `PAGE` path.
+The script writes `sessions.html` next to those files and opens it in the default browser, unless `SESSION_FINDER_NO_OPEN=1` is set. The page is 1 self-contained file: it downloads nothing, follows the system's light or dark setting, escapes all text, and gives every row a copy button. Rows without a summary still appear, marked "not summarised". If the output says `NOT_OPENED`, give the user the `PAGE` path.
 
 ## 4. Answer in chat
 
@@ -71,4 +71,4 @@ Then, briefly:
 ## Rules
 
 - Read-only: never edit, rename or delete transcripts.
-- The page and the work files hold summaries of private conversations. Keep them in the resume-table folder under Claude's config, never in the project or anywhere that syncs.
+- The page and the work files hold summaries of private conversations. Keep them in the session-finder folder under Claude's config, never in the project or anywhere that syncs.
