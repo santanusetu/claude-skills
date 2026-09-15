@@ -57,27 +57,16 @@ show my last 6 sessions
   <img src=".github/media/session-finder-dark.png" alt="session-finder page in dark mode: a terminal-style prompt showing claude --resume and a session ID above a table of 6 sessions with summaries, times and copy buttons" width="100%">
 </p>
 
-<details>
-<summary>Light mode (it follows your system setting)</summary>
+**Light mode** (the page follows your system setting):
 
-<img src=".github/media/session-finder-light.png" alt="The same page in light mode" width="100%">
-</details>
+<p align="center">
+  <img src=".github/media/session-finder-light.png" alt="The same page in light mode" width="100%">
+</p>
 
 - **Point at a row** and the prompt at the top types out its command. **Copy** puts exactly that on your clipboard.
 - **A session running in another terminal** gets a pulsing yellow marker and a **Copy anyway** button, plus a reminder to switch windows instead.
 - **1 self-contained file** at `~/.claude/session-finder/sessions.html`. It downloads nothing, uses an embedded font, and is overwritten on each run.
 - **The colours are [Cobalt Neon](https://github.com/mbadolato/iTerm2-Color-Schemes)**, from iTerm2-Color-Schemes, with a light version of the same palette.
-
-**And a short table in chat**, for when you just need the answer:
-
-> Your last 4 sessions in `/home/dev/acme-shop`, newest first. All from Thu 15 Jan; this session is left out.
-
-| # | What it was about | Started | Last active | Where it stopped | Resume with |
-|---|---|---|---|---|---|
-| 1 | **Flaky checkout test**, then caching dependencies in CI | 9:02 AM | 10:14 AM | PR #42 is open with both fixes, **waiting for your review** | `claude --resume a1f3c2d4-1111-4a7b-9c10-000000000001` |
-| 2 | **Dark mode** for the settings page, then following the system theme | 6:00 AM | 7:25 AM | Done apart from 1 choice **waiting on you**: the accent colour. ⚠️ **Open now** | `claude --resume b2e4d3c5-2222-4b8c-8d21-000000000002` |
-| 3 | **Orders status migration** | 3:00 AM | 3:40 AM | Written and tested locally, **not yet run on staging** | `claude --resume c3d5e4f6-3333-4c9d-9e32-000000000003` |
-| 4 | **Background worker memory leak** | Wed 12:00 PM | Wed 1:10 PM | Cause found (an unbounded image cache); fix proposed, **not applied** | `claude --resume d4c6f5a7-4444-4dae-8f43-000000000004` |
 
 *(All examples are fictional, taken from the [test fixtures](tests/session-finder/build_fixtures.py). Rebuild the screenshots with `python3 tests/session-finder/build_example.py`.)*
 
