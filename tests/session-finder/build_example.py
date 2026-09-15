@@ -32,9 +32,10 @@ def chrome():
             return c
 
 
-def main():
+def example_facts():
+    """Facts and summaries for the fictional sessions, with session 2 marked as open elsewhere."""
     build_fixtures.build()
-    sessions, render = load("sessions"), load("render")
+    sessions = load("sessions")
     ids = list(build_fixtures.SESSIONS)
     buf = io.StringIO()
     with mock.patch.dict(os.environ, {"CLAUDE_CONFIG_DIR": build_fixtures.ROOT}), \
@@ -45,11 +46,20 @@ def main():
     facts["generated"] = "Thu 15 Jan 10:20 AM"  # stable for the screenshots
     with open(os.path.join(EVALS, "example-summaries.json")) as fh:
         summaries = json.load(fh)
+    return facts, summaries
+
+
+def example_html(theme):
+    facts, summaries = example_facts()
+    return load("render").build(facts, summaries, theme)
+
+
+def main():
     exe = chrome()
     for theme in ("dark", "light"):
         page = os.path.join(OUT, f".tmp-{theme}.html")
         with open(page, "w") as fh:
-            fh.write(render.build(facts, summaries, theme))
+            fh.write(example_html(theme))
         if exe:
             subprocess.run([exe, "--headless", "--disable-gpu", "--hide-scrollbars", "--window-size=1320,760",
                             "--virtual-time-budget=1500", f"--screenshot={os.path.join(OUT, f'session-finder-{theme}.png')}",

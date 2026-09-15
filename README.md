@@ -54,6 +54,12 @@ show my last 6 sessions
 **A page in your browser** with your last 10 sessions: 1 click copies the exact command, and sessions still open elsewhere are flagged before you clash with them.
 
 <p align="center">
+  <img src=".github/media/session-finder-demo.gif" alt="Demo: pointing at sessions types each resume command into the prompt, Copy copies it, and copying a session that is open in another terminal shows a warning" width="100%">
+</p>
+
+**Dark mode:**
+
+<p align="center">
   <img src=".github/media/session-finder-dark.png" alt="session-finder page in dark mode: a terminal-style prompt showing claude --resume and a session ID above a table of 6 sessions with summaries, times and copy buttons" width="100%">
 </p>
 
@@ -62,13 +68,6 @@ show my last 6 sessions
 <p align="center">
   <img src=".github/media/session-finder-light.png" alt="The same page in light mode" width="100%">
 </p>
-
-- **Point at a row** and the prompt at the top types out its command. **Copy** puts exactly that on your clipboard.
-- **A session running in another terminal** gets a pulsing yellow marker and a **Copy anyway** button, plus a reminder to switch windows instead.
-- **1 self-contained file** at `~/.claude/session-finder/sessions.html`. It downloads nothing, uses an embedded font, and is overwritten on each run.
-- **The colours are [Cobalt Neon](https://github.com/mbadolato/iTerm2-Color-Schemes)**, from iTerm2-Color-Schemes, with a light version of the same palette.
-
-*(All examples are fictional, taken from the [test fixtures](tests/session-finder/build_fixtures.py). Rebuild the screenshots with `python3 tests/session-finder/build_example.py`.)*
 
 ### How it works
 
@@ -109,13 +108,12 @@ Ask in plain words ("last 6", "sessions for ~/api") and the skill passes these f
 | `SESSION_FINDER_NO_OPEN=1` | unset | write the page but don't open a browser |
 | `CLAUDE_CONFIG_DIR` | `~/.claude` | where Claude's transcripts, and this page, live |
 
-### Requirements and limits
+### Requirements and limitations
 
-- **Python 3.8+ and Claude Code.** No dependencies.
-- **macOS and Linux get full support.** On Windows everything works except open-session detection, which needs `ps`.
-- **Summaries come from the first and last few prompts**, so a long session's middle chapters can be under-described. Ask Claude to look closer at a specific row if needed.
-- **A plain `claude` process has no session ID on its command line**, so it's reported as unidentified rather than matched to a row.
-- **This relies on Claude Code's transcript format**, which isn't a public API. If an update changes it, the tests will catch it.
+- Python 3.8+ and Claude Code. No other dependencies.
+- macOS and Linux. On Windows, open-session detection is unavailable.
+- Summaries are based on the first and last few prompts of each session.
+- Relies on Claude Code's transcript format, which is not a public API.
 
 ### Tests
 
@@ -123,11 +121,11 @@ Ask in plain words ("last 6", "sessions for ~/api") and the skill passes these f
 python3 -m unittest discover -s tests/session-finder
 ```
 
-There are 24 tests against 7 [fictional sessions](tests/session-finder/build_fixtures.py). They cover ordering, count, excluding the current session, empty sessions, subfolders, custom titles, subagent messages, malformed lines, open-session detection, and for the page: escaping, the running-session warning, no external requests, theme handling and the empty state. You can also try the skill itself on the fixtures, without any real sessions: see [`tests/session-finder`](tests/session-finder).
+24 tests run against fictional sessions, covering transcript parsing, open-session detection and the HTML page.
 
 ## Contributing
 
-Ideas and fixes are welcome. [`CLAUDE.md`](CLAUDE.md) has the layout, the privacy rule and the checklist for adding a skill, and [`template`](template) is a starting point.
+Contributions are welcome. See [CLAUDE.md](CLAUDE.md) for repository conventions, and start new skills from [`template/`](template).
 
 ## License
 
