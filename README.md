@@ -14,9 +14,11 @@
 
 ---
 
-| Skill | What it does |
-|---|---|
-| **[`resume-table`](skills/resume-table)** | Shows your recent Claude Code sessions on a local page with a copy button for each `claude --resume` command, plus what each was about, where it stopped, and whether it's still open. |
+## Skills
+
+**[resume-table](#resume-table)** · Find a past Claude Code session and get back into it.
+
+A local page lists your recent sessions: what each was about, where it stopped, and which are still open in another terminal. 1 click copies the command to resume any of them.
 
 ## Install
 
