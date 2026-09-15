@@ -1,0 +1,7 @@
+{
+ "a1f3c2d4-1111-4a7b-9c10-000000000001": {"about": "**Flaky checkout test**, then caching dependencies in CI", "stopped": "PR #42 is open with both fixes, **waiting for your review**"},
+ "b2e4d3c5-2222-4b8c-8d21-000000000002": {"about": "**Dark mode** for the settings page, then following the system theme", "stopped": "Done apart from 1 choice **waiting on you**: the dark-mode accent colour"},
+ "c3d5e4f6-3333-4c9d-9e32-000000000003": {"about": "**Orders status migration**", "stopped": "Written and tested locally, **not yet run on staging**"},
+ "d4c6f5a7-4444-4dae-8f43-000000000004": {"about": "**Background worker memory leak**", "stopped": "Cause found (an unbounded image cache); fix proposed, **not applied**"},
+ "e5b7a6c8-5555-4ebf-a054-000000000005": {"about": "**WebSockets explainer** via /teach-me", "stopped": "Chapter written, ending with 5 check questions"}
+}

@@ -1,0 +1,7 @@
+{"type": "ai-title", "aiTitle": "Flaky checkout test"}
+{"type": "user", "timestamp": "2026-01-15T17:02:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "user", "content": "the checkout test keeps failing randomly in CI, can you figure out why?"}}
+{"type": "assistant", "timestamp": "2026-01-15T17:20:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "assistant", "content": [{"type": "text", "text": "It races the payment mock. I added an explicit wait for the mock to be ready."}]}}
+{"type": "user", "timestamp": "2026-01-15T17:40:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "user", "content": "nice. CI is also slow, can we cache node_modules in the GitHub Actions workflow?"}}
+{"type": "assistant", "timestamp": "2026-01-15T18:05:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "assistant", "content": [{"type": "text", "text": "Added dependency caching to .github/workflows/ci.yml; the run dropped from 9 to 4 minutes."}]}}
+{"type": "user", "timestamp": "2026-01-15T18:10:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "user", "content": "open a PR for both"}}
+{"type": "assistant", "timestamp": "2026-01-15T18:14:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "assistant", "content": [{"type": "text", "text": "PR #42 is open with the test fix and the CI cache. It's waiting for your review."}]}}

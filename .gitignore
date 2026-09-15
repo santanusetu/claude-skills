@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+# skill-creator workspaces hold real run outputs — never commit them
+*-workspace/
+
+# private terms for tools/privacy_check.py — never commit
+.private-patterns

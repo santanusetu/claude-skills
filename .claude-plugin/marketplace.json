@@ -1,0 +1,24 @@
+{
+  "name": "claude-skills",
+  "owner": {
+    "name": "Santanu Chakraborty"
+  },
+  "metadata": {
+    "description": "Small Claude Code skills that do one job well",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "resume-table",
+      "source": "./",
+      "strict": false,
+      "description": "Show recent Claude Code sessions on a local page with a copy button for each claude --resume command, plus what each was about, where it stopped, and whether it is still open in another terminal.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "repository": "https://github.com/santanusetu/claude-skills",
+      "keywords": ["sessions", "resume", "productivity", "claude-code", "history"],
+      "category": "productivity",
+      "skills": ["./skills/resume-table"]
+    }
+  ]
+}

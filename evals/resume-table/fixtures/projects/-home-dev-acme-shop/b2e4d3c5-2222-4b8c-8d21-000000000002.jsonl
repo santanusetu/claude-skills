@@ -1,0 +1,5 @@
+{"type": "ai-title", "aiTitle": "Dark mode settings"}
+{"type": "user", "timestamp": "2026-01-15T14:00:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "user", "content": "add a dark mode toggle to the settings page"}}
+{"type": "assistant", "timestamp": "2026-01-15T14:30:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "assistant", "content": [{"type": "text", "text": "Toggle added and saved per user."}]}}
+{"type": "user", "timestamp": "2026-01-15T15:10:00Z", "cwd": "/home/dev/acme-shop/web/src", "message": {"role": "user", "content": "can it follow the system theme by default?"}}
+{"type": "assistant", "timestamp": "2026-01-15T15:25:00Z", "cwd": "/home/dev/acme-shop/web/src", "message": {"role": "assistant", "content": [{"type": "text", "text": "Done: it now follows the system theme unless the user overrides it. One thing left for you: pick the accent colour for dark mode (blue or teal)."}]}}

@@ -1,0 +1,24 @@
+{
+  "skill_name": "resume-table",
+  "setup": "Run against the fictional fixtures: CLAUDE_CONFIG_DIR=evals/resume-table/fixtures, project /home/dev/acme-shop.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what were my last 4 claude sessions in this project? give me a table i can resume from",
+      "expected_output": "6-column table with a1f3c2d4-…0001, b2e4d3c5-…0002, c3d5e4f6-…0003, d4c6f5a7-…0004 in that order, full IDs, then an older list with e5b7a6c8-…0005 and f6a8b7d9-…0006.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "show me my last 6 conversations so i can pick one to continue. don't need the older list",
+      "expected_output": "Table with exactly 6 rows (sessions 1–6), no older-sessions list, the empty session a7a7a7a7-…0007 absent.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "a couple of days ago i was chasing a memory leak in the background worker in some claude session. which one was it and how do i get back into it?",
+      "expected_output": "Names d4c6f5a7-4444-4dae-8f43-000000000004 first with `claude --resume d4c6f5a7-4444-4dae-8f43-000000000004`, says the fix was proposed but not applied, then the table.",
+      "files": []
+    }
+  ]
+}

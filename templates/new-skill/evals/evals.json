@@ -1,0 +1,12 @@
+{
+  "skill_name": "your-skill-name",
+  "setup": "How to point the skill at the fictional fixtures.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "A realistic request, the way a person would type it",
+      "expected_output": "What a good answer contains",
+      "files": []
+    }
+  ]
+}

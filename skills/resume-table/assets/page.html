@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"{{THEME_ATTR}}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Sessions · {{PROJECT_SHORT}}</title>
+<style>
+/* Martian Mono (SIL OFL 1.1, © The Martian Mono Project Authors) — embedded, so nothing is downloaded */
+@font-face{font-family:"Martian Mono";src:url(data:font/woff2;base64,{{FONT_BASE64}}) format("woff2");font-weight:500;font-display:swap}
+
+/* Colours: Cobalt Neon from iTerm2-Color-Schemes. Light tokens on :root, dark ones below. */
+:root{
+  --bg:#f2f8f3;--frame:#cfe0d4;--rule:#dde9e0;--hover:#e3efe6;--action:#1459a8;--on-action:#ffffff;--glow:transparent;
+  --label:#3f7a4a;--ink:#1d5e2a;--strong:#0f4a1f;--muted:#3f7a4a;--done:#142631;--warn:#7a5c00;--wait:#3c6f9e;--id:#142631;
+  --display:"Martian Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Cascadia Code",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#142631;--frame:#24404f;--rule:#1b3140;--hover:#18323f;--action:#3ba5ff;--on-action:#142631;--glow:#3ba5ff55;
+  --label:#6cbc67;--ink:#8ff586;--strong:#c9ffc2;--muted:#6cbc67;--done:#ffffff;--warn:#e9e75c;--wait:#8cc4ff;--id:#ffffff}}
+:root[data-theme="dark"]{
+  --bg:#142631;--frame:#24404f;--rule:#1b3140;--hover:#18323f;--action:#3ba5ff;--on-action:#142631;--glow:#3ba5ff55;
+  --label:#6cbc67;--ink:#8ff586;--strong:#c9ffc2;--muted:#6cbc67;--done:#ffffff;--warn:#e9e75c;--wait:#8cc4ff;--id:#ffffff}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font:14px/1.55 var(--mono);padding-block:0 48px;padding-inline:16px}
+.wrap{max-width:1240px;margin:0 auto}
+
+.bar{display:flex;justify-content:space-between;gap:6px 16px;flex-wrap:wrap;padding:14px 4px 12px;border-bottom:1px solid var(--frame);
+     font-size:12px;color:var(--muted);letter-spacing:.03em}
+.bar b{font-family:var(--display);font-weight:500;color:var(--strong);letter-spacing:0}
+
+/* The signature: the command you are about to paste, typed out for the row you point at */
+.prompt{margin:0;padding:30px 4px 12px;font-family:var(--display);font-weight:500;color:var(--ink)}
+.prompt .cwd{font-size:13px;color:var(--muted);margin-bottom:6px}
+.prompt .line{font-size:clamp(13px,1.85vw,24px);line-height:1.35;white-space:nowrap;overflow-x:auto}
+.prompt .arrow{color:var(--action);margin-right:.6ch}
+.prompt .cmd{color:var(--action);text-shadow:0 0 12px var(--glow)}
+.prompt .id{color:var(--id)}
+.cursor{display:inline-block;width:.55em;height:1.05em;vertical-align:-.16em;margin-left:3px;background:var(--action);
+        box-shadow:0 0 12px var(--glow);animation:blink 1.05s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hint{margin:0;padding:0 4px 18px;font-size:12.5px;color:var(--muted);border-bottom:1px dashed var(--frame)}
+
+.scroll{overflow-x:auto;margin-top:6px}
+table{width:100%;min-width:900px;border-collapse:collapse}
+caption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--label);text-align:left;
+   padding:14px 10px 8px;border-bottom:1px solid var(--frame);white-space:nowrap}
+td{padding:12px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr.row{cursor:pointer;transition:background .15s}
+tr.row:hover,tr.row.sel{background:var(--hover)}
+tr.row.sel td:first-child{box-shadow:inset 2px 0 0 var(--action)}
+.n{color:var(--muted);width:3ch}
+.about{width:34%}
+.about b{color:var(--strong);font-weight:700}
+.about .raw{color:var(--muted)}
+.about .note{display:block;margin-top:4px;font-size:11.5px;color:var(--muted);font-style:italic}
+.when{white-space:nowrap;color:var(--muted);font-size:13px}
+.when .last{color:var(--ink)}
+.stop{font-size:13.5px}
+.stop strong{font-weight:600;color:var(--wait);border-bottom:1px dotted var(--wait)}
+.stop .raw{color:var(--muted)}
+.running{display:flex;align-items:center;gap:7px;margin-top:6px;font-size:12px;color:var(--warn)}
+.running::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--warn);box-shadow:0 0 8px var(--warn);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.warnline{margin:8px 0 0;font-size:12px;color:var(--warn)}
+.act{width:1%;white-space:nowrap;text-align:right}
+button{font:600 12px var(--mono);letter-spacing:.04em;color:var(--action);background:transparent;border:1px solid var(--action);
+       border-radius:6px;padding:6px 12px;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s}
+button:hover{background:var(--action);color:var(--on-action);box-shadow:0 0 14px var(--glow)}
+button:focus-visible{outline:2px solid var(--strong);outline-offset:2px}
+button.done{border-color:var(--done);color:var(--done);background:transparent;box-shadow:none}
+.is-open button{border-color:var(--warn);color:var(--warn)}
+.is-open button:hover{background:var(--warn);color:var(--bg);box-shadow:0 0 14px var(--warn)}
+.empty{padding:40px 4px;color:var(--muted)}
+.empty code{color:var(--action)}
+.foot{margin:18px 4px 0;font-size:12px;color:var(--muted);max-width:90ch}
+.foot p{margin:0 0 6px}
+.foot code{color:var(--action)}
+@media (prefers-reduced-motion:reduce){.cursor,.running::before{animation:none}tr.row,button{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar"><span><b>resume-table</b> · {{PROJECT_SHORT}}</span><span>{{COUNT_LABEL}} · generated {{GENERATED}} · open status as of then</span></div>
+
+  <div class="prompt"><div class="cwd">{{PROJECT_SHORT}}</div><div class="line"><span class="arrow">❯</span><span class="cmd">claude --resume</span> <span class="id" id="prompt-id">{{FIRST_ID}}</span><span class="cursor" aria-hidden="true"></span></div></div>
+  <p class="hint">Point at a session to see its command, then copy it and paste it into a terminal in this folder.</p>
+  <span id="status" class="sr" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></span>
+
+  {{BODY}}
+
+  <div class="foot">{{NOTES}}</div>
+</div>
+<script>
+(() => {
+  const promptId = document.getElementById("prompt-id"), status = document.getElementById("status");
+  const still = matchMedia("(prefers-reduced-motion: reduce)");
+  let timer;
+  function show(id, animate) {
+    clearInterval(timer);
+    if (!animate || still.matches) { promptId.textContent = id; return; }
+    let i = 0; promptId.textContent = "";
+    timer = setInterval(() => { promptId.textContent = id.slice(0, i += 3); if (i >= id.length) clearInterval(timer); }, 14);
+  }
+  async function copy(text) {
+    try { await navigator.clipboard.writeText(text); return true; }
+    catch (e) {
+      const t = document.createElement("textarea"); t.value = text; t.setAttribute("readonly", "");
+      t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select();
+      const ok = document.execCommand("copy"); t.remove(); return ok;
+    }
+  }
+  document.querySelectorAll("tr.row").forEach(row => {
+    const id = row.dataset.id, btn = row.querySelector("button"), label = btn.textContent;
+    const select = animate => {
+      document.querySelectorAll("tr.row.sel").forEach(r => r.classList.remove("sel"));
+      row.classList.add("sel"); show(id, animate);
+    };
+    row.addEventListener("mouseenter", () => select(true));
+    row.addEventListener("focusin", () => select(false));
+    row.addEventListener("click", () => select(false));
+    btn.addEventListener("click", async e => {
+      e.stopPropagation(); select(false);
+      const ok = await copy("claude --resume " + id);
+      btn.textContent = ok ? "Copied" : "Copy failed — select the command above";
+      btn.classList.add("done");
+      status.textContent = ok ? "Copied the resume command for session " + row.dataset.rank : "Copy failed";
+      const warn = row.querySelector(".warnline"); if (warn && ok) warn.hidden = false;
+      setTimeout(() => { btn.textContent = label; btn.classList.remove("done"); }, 1800);
+    });
+  });
+  const first = document.querySelector("tr.row"); if (first) first.classList.add("sel");
+})();
+</script>
+</body>
+</html>

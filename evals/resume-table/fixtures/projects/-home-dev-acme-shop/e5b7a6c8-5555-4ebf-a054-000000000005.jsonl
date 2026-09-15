@@ -1,0 +1,2 @@
+{"type": "user", "timestamp": "2026-01-14T09:00:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "user", "content": "<command-name>/teach-me</command-name><command-args>websockets</command-args>"}}
+{"type": "assistant", "timestamp": "2026-01-14T09:30:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "assistant", "content": [{"type": "text", "text": "Here's the chapter on WebSockets, ending with 5 check questions."}]}}

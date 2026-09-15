@@ -1,0 +1,3 @@
+{"type": "ai-title", "aiTitle": "Worker memory leak"}
+{"type": "user", "timestamp": "2026-01-14T20:00:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "user", "content": "the background worker's memory keeps growing until it crashes, help me debug"}}
+{"type": "assistant", "timestamp": "2026-01-14T21:10:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "assistant", "content": [{"type": "text", "text": "Found it: resized image buffers are cached forever in thumbnails.py. I've proposed an LRU cache capped at 200 entries but haven't applied it. Say 'apply it' to go ahead."}]}}

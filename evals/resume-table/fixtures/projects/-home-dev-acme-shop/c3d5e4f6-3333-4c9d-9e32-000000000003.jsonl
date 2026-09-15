@@ -1,0 +1,8 @@
+{"type": "ai-title", "aiTitle": "auto title that should lose"}
+{"type": "custom-title", "customTitle": "orders status migration"}
+{"type": "user", "timestamp": "2026-01-15T11:00:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "user", "content": "write a database migration that adds a status column to orders"}}
+{"type": "user", "timestamp": "2026-01-15T11:00:30Z", "cwd": "/home/dev/acme-shop", "message": {"role": "user", "content": "write a database migration that adds a status column to orders"}}
+{"type": "user", "timestamp": "2026-01-15T11:01:00Z", "isMeta": true, "message": {"content": "meta noise"}}
+{"type": "assistant", "timestamp": "2026-01-15T11:05:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "assistant", "content": [{"type": "text", "text": "SUBAGENT TEXT THAT MUST NOT APPEAR"}]}, "isSidechain": true}
+this line is not json
+{"type": "assistant", "timestamp": "2026-01-15T11:40:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "assistant", "content": [{"type": "text", "text": "Migration 0042_add_order_status is written and tested on a local copy. It has not been run against staging yet."}]}}

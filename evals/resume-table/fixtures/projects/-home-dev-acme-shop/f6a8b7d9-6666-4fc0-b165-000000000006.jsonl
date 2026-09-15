@@ -1,0 +1,2 @@
+{"type": "user", "timestamp": "2026-01-10T16:00:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "user", "content": "set up Stripe webhooks for refunds"}}
+{"type": "assistant", "timestamp": "2026-01-12T10:00:00Z", "cwd": "/home/dev/acme-shop", "message": {"role": "assistant", "content": [{"type": "text", "text": "Refund webhooks are live in test mode; the signing secret is read from the environment."}]}}
