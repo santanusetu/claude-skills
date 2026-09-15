@@ -54,13 +54,13 @@ show my last 6 sessions
 **A page in your browser** with your last 10 sessions: 1 click copies the exact command, and sessions still open elsewhere are flagged before you clash with them.
 
 <p align="center">
-  <img src="examples/resume-table/screenshot-dark.png" alt="resume-table page in dark mode: a terminal-style prompt showing claude --resume and a session ID above a table of 6 sessions with summaries, times and copy buttons" width="100%">
+  <img src=".github/media/resume-table-dark.png" alt="resume-table page in dark mode: a terminal-style prompt showing claude --resume and a session ID above a table of 6 sessions with summaries, times and copy buttons" width="100%">
 </p>
 
 <details>
 <summary>Light mode (it follows your system setting)</summary>
 
-<img src="examples/resume-table/screenshot-light.png" alt="The same page in light mode" width="100%">
+<img src=".github/media/resume-table-light.png" alt="The same page in light mode" width="100%">
 </details>
 
 - **Point at a row** and the prompt at the top types out its command. **Copy** puts exactly that on your clipboard.
@@ -79,7 +79,7 @@ show my last 6 sessions
 | 3 | **Orders status migration** | 3:00 AM | 3:40 AM | Written and tested locally, **not yet run on staging** | `claude --resume c3d5e4f6-3333-4c9d-9e32-000000000003` |
 | 4 | **Background worker memory leak** | Wed 12:00 PM | Wed 1:10 PM | Cause found (an unbounded image cache); fix proposed, **not applied** | `claude --resume d4c6f5a7-4444-4dae-8f43-000000000004` |
 
-*(All examples are fictional, taken from the [test fixtures](evals/resume-table/build_fixtures.py). Rebuild the page and screenshots with `python3 examples/resume-table/build_example.py`.)*
+*(All examples are fictional, taken from the [test fixtures](tests/resume-table/build_fixtures.py). Rebuild the screenshots with `python3 tests/resume-table/build_example.py`.)*
 
 ### How it works
 
@@ -131,14 +131,14 @@ Ask in plain words ("last 6", "sessions for ~/api") and the skill passes these f
 ### Tests
 
 ```bash
-python3 -m unittest discover -s evals/resume-table
+python3 -m unittest discover -s tests/resume-table
 ```
 
-There are 24 tests against 7 [fictional sessions](evals/resume-table/build_fixtures.py). They cover ordering, count, excluding the current session, empty sessions, subfolders, custom titles, subagent messages, malformed lines, open-session detection, and for the page: escaping, the running-session warning, no external requests, theme handling and the empty state. You can also try the skill itself on the fixtures, without any real sessions: see [`evals/resume-table`](evals/resume-table).
+There are 24 tests against 7 [fictional sessions](tests/resume-table/build_fixtures.py). They cover ordering, count, excluding the current session, empty sessions, subfolders, custom titles, subagent messages, malformed lines, open-session detection, and for the page: escaping, the running-session warning, no external requests, theme handling and the empty state. You can also try the skill itself on the fixtures, without any real sessions: see [`tests/resume-table`](tests/resume-table).
 
 ## Contributing
 
-Ideas and fixes are welcome. [`CLAUDE.md`](CLAUDE.md) has the layout, the privacy rule and the checklist for adding a skill, and [`templates/new-skill`](templates/new-skill) is a starting point.
+Ideas and fixes are welcome. [`CLAUDE.md`](CLAUDE.md) has the layout, the privacy rule and the checklist for adding a skill, and [`template`](template) is a starting point.
 
 ## License
 

@@ -5,17 +5,17 @@
 ## 1. Script tests
 
 ```bash
-python3 -m unittest discover -s evals/resume-table
+python3 -m unittest discover -s tests/resume-table
 ```
 
-`build_fixtures.py` writes 7 made-up sessions for a project at `/home/dev/acme-shop` into `fixtures/`, and the tests point the script at them with `CLAUDE_CONFIG_DIR`. Rebuild the fixtures with `python3 evals/resume-table/build_fixtures.py`.
+`build_fixtures.py` writes 7 made-up sessions for a project at `/home/dev/acme-shop` into `fixtures/`, and the tests point the script at them with `CLAUDE_CONFIG_DIR`. Rebuild the fixtures with `python3 tests/resume-table/build_fixtures.py`.
 
 ## 2. Skill evals (Claude runs the skill)
 
 `evals.json` holds 3 realistic requests with the expected result. The skill's script reads the fixtures when `CLAUDE_CONFIG_DIR` points at them. See what Claude will be summarising with:
 
 ```bash
-CLAUDE_CONFIG_DIR="$PWD/evals/resume-table/fixtures" \
+CLAUDE_CONFIG_DIR="$PWD/tests/resume-table/fixtures" \
   python3 skills/resume-table/scripts/sessions.py --project /home/dev/acme-shop
 ```
 

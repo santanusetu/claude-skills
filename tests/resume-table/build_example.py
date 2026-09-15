@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Build the README example from the fictional fixtures: sessions.html plus 2 screenshots.
+"""Rebuild the README screenshots of the resume-table page from the fictional fixtures.
 
-Run from the repo root:  python3 examples/resume-table/build_example.py
-Screenshots need Google Chrome or Chromium; the HTML does not.
+Run from the repo root:  python3 tests/resume-table/build_example.py
+Needs Google Chrome or Chromium for the screenshots.
 """
 import contextlib, importlib.util, io, json, os, shutil, subprocess, sys
 from unittest import mock
@@ -12,8 +12,8 @@ os.environ["TZ"] = "America/Los_Angeles"  # fixtures and expected times are writ
 if hasattr(time, "tzset"):
     time.tzset()
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = os.path.join(ROOT, "examples", "resume-table")
-EVALS = os.path.join(ROOT, "evals", "resume-table")
+OUT = os.path.join(ROOT, ".github", "media")
+EVALS = os.path.join(ROOT, "tests", "resume-table")
 SCRIPTS = os.path.join(ROOT, "skills", "resume-table", "scripts")
 sys.path.insert(0, EVALS)
 import build_fixtures  # noqa: E402
@@ -45,8 +45,6 @@ def main():
     facts["generated"] = "Thu 15 Jan 10:20 AM"  # stable for the screenshots
     with open(os.path.join(EVALS, "example-summaries.json")) as fh:
         summaries = json.load(fh)
-    with open(os.path.join(OUT, "sessions.html"), "w") as fh:
-        fh.write(render.build(facts, summaries))
     exe = chrome()
     for theme in ("dark", "light"):
         page = os.path.join(OUT, f".tmp-{theme}.html")
@@ -54,7 +52,7 @@ def main():
             fh.write(render.build(facts, summaries, theme))
         if exe:
             subprocess.run([exe, "--headless", "--disable-gpu", "--hide-scrollbars", "--window-size=1320,760",
-                            "--virtual-time-budget=1500", f"--screenshot={os.path.join(OUT, f'screenshot-{theme}.png')}",
+                            "--virtual-time-budget=1500", f"--screenshot={os.path.join(OUT, f'resume-table-{theme}.png')}",
                             "file://" + page], capture_output=True)
         os.remove(page)
     print("wrote", OUT, "(screenshots skipped: no Chrome)" if not exe else "")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Tests for skills/resume-table/scripts/render.py (the local HTML page).
 
-Run from the repo root:  python3 -m unittest discover -s evals/resume-table
+Run from the repo root:  python3 -m unittest discover -s tests/resume-table
 """
 import contextlib, importlib.util, io, json, os, re, tempfile, unittest
 from unittest import mock

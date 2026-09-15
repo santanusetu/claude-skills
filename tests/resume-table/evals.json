@@ -1,6 +1,6 @@
 {
   "skill_name": "resume-table",
-  "setup": "Run against the fictional fixtures: CLAUDE_CONFIG_DIR=evals/resume-table/fixtures, project /home/dev/acme-shop.",
+  "setup": "Run against the fictional fixtures: CLAUDE_CONFIG_DIR=tests/resume-table/fixtures, project /home/dev/acme-shop.",
   "evals": [
     {
       "id": 1,

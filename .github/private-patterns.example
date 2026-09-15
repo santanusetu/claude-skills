@@ -1,4 +1,4 @@
-# Copy to .private-patterns (gitignored) and list terms that must never be published.
+# Copy to .private-patterns at the repo root (gitignored) and list terms that must never be published.
 # One regular expression per line, matched case-insensitively.
 # Your name is fine in LICENSE and marketplace.json; allow it with a negative lookahead if needed.
 \bacme-internal\b

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Tests for skills/<name>/scripts/main.py. Use fictional fixtures only.
 
-Run from the repo root:  python3 -m unittest discover -s evals/<name>
+Run from the repo root:  python3 -m unittest discover -s tests/<name>
 """
 import os, subprocess, sys, unittest
 

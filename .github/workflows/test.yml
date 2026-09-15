@@ -10,9 +10,9 @@ jobs:
           python-version: "3.12"
       - name: Unit tests for every skill
         run: |
-          for d in evals/*/; do
+          for d in tests/*/; do
             echo "== $d"
             python -m unittest discover -s "$d"
           done
       - name: Privacy check (built-in rules)
-        run: python tools/privacy_check.py
+        run: python .github/scripts/privacy_check.py

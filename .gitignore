@@ -4,5 +4,5 @@ __pycache__/
 # skill-creator workspaces hold real run outputs — never commit them
 *-workspace/
 
-# private terms for tools/privacy_check.py — never commit
+# private terms for .github/scripts/privacy_check.py — never commit
 .private-patterns

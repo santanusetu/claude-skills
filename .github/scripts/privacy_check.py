@@ -5,18 +5,18 @@ Terms come from .private-patterns (one regex per line, # for comments). That fil
 gitignored, so the list of things you want kept private is itself never published.
 Built-in checks catch home-folder paths and email addresses in any case.
 
-Usage:  python3 tools/privacy_check.py        (exit 1 if anything is found)
+Usage:  python3 .github/scripts/privacy_check.py        (exit 1 if anything is found)
 """
 import os, re, subprocess, sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BUILTIN = [
     (r"/Users/[A-Za-z0-9._-]+", "macOS home path"),
     (r"/home/(?!dev/)[A-Za-z0-9._-]+", "Linux home path (fixtures use /home/dev)"),
     (r"C:\\\\Users\\\\", "Windows home path"),
     (r"[A-Za-z0-9._%+-]+@(?!example\.com|anthropic\.com)[A-Za-z0-9.-]+\.[a-z]{2,}", "email address"),
 ]
-SKIP = {"tools/privacy_check.py", ".private-patterns.example"}
+SKIP = {".github/scripts/privacy_check.py", ".github/private-patterns.example"}
 
 
 def files():
@@ -35,7 +35,7 @@ def patterns():
                 pats.append((line, "private term"))
     else:
         print("note: no .private-patterns file; only built-in checks ran "
-              "(copy .private-patterns.example to add your own terms)")
+              "(copy .github/private-patterns.example to .private-patterns to add your own terms)")
     return [(re.compile(p, re.I), why) for p, why in pats]
 
 
