@@ -16,9 +16,9 @@
 
 ## Skills
 
-**[resume-table](#resume-table)** · Find a past Claude Code session and get back into it.
-
-A local page lists your recent sessions: what each was about, where it stopped, and which are still open in another terminal. 1 click copies the command to resume any of them.
+| Skill | What it does |
+|---|---|
+| **[resume-table](#resume-table)** | Find a past Claude Code session and get back into it, with 1-click resume |
 
 ## Install
 
