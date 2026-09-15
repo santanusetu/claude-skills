@@ -6,6 +6,10 @@ Run from the repo root:  python3 -m unittest discover -s evals/resume-table
 import contextlib, importlib.util, io, json, os, re, tempfile, unittest
 from unittest import mock
 
+import time
+os.environ["TZ"] = "America/Los_Angeles"  # fixtures and expected times are written in Pacific time
+if hasattr(time, "tzset"):
+    time.tzset()
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCRIPTS = os.path.join(HERE, "..", "..", "skills", "resume-table", "scripts")
 

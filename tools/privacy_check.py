@@ -43,9 +43,13 @@ def main():
     pats, hits = patterns(), 0
     for f in files():
         try:
-            text = open(os.path.join(ROOT, f), errors="ignore").read()
+            with open(os.path.join(ROOT, f), "rb") as fh:
+                raw = fh.read()
         except (IsADirectoryError, FileNotFoundError):
             continue
+        if b"\0" in raw[:8192]:
+            continue  # binary (images, fonts): random bytes produce false matches
+        text = raw.decode("utf-8", errors="ignore")
         for n, line in enumerate(text.splitlines(), 1):
             for rx, why in pats:
                 m = rx.search(line)

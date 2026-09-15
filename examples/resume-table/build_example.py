@@ -7,6 +7,10 @@ Screenshots need Google Chrome or Chromium; the HTML does not.
 import contextlib, importlib.util, io, json, os, shutil, subprocess, sys
 from unittest import mock
 
+import time
+os.environ["TZ"] = "America/Los_Angeles"  # fixtures and expected times are written in Pacific time
+if hasattr(time, "tzset"):
+    time.tzset()
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUT = os.path.join(ROOT, "examples", "resume-table")
 EVALS = os.path.join(ROOT, "evals", "resume-table")
