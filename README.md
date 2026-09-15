@@ -131,4 +131,4 @@ Ideas and fixes are welcome. [`CLAUDE.md`](CLAUDE.md) has the layout, the privac
 
 ## License
 
-MIT
+MIT © 2026 Santanu Chakraborty. See [LICENSE](LICENSE).
