@@ -15,3 +15,4 @@ GitHub runs the same loop on every push, plus the privacy check. See [`.github/w
 | Skill | What's covered |
 |---|---|
 | [`session-finder`](session-finder) | Session parsing, ordering, open-session detection (native and npm installs), and the HTML page: escaping, offline-only, themes, empty state |
+| [`cricbay-pom-report`](cricbay-pom-report) | Scorecard parsing, partnerships, wicket clusters, hat-tricks, the chase equation, and the error cases |

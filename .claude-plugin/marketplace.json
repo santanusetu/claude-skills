@@ -19,6 +19,18 @@
       "keywords": ["sessions", "resume", "productivity", "claude-code", "history"],
       "category": "productivity",
       "skills": ["./skills/session-finder"]
+    },
+    {
+      "name": "cricbay-pom-report",
+      "source": "./",
+      "strict": false,
+      "description": "Draft a Player of the Match report for a CricBay game from its scorecard, with partnerships, wicket clusters, hat-tricks and the chase equation worked out for you. It never posts anything.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "repository": "https://github.com/santanusetu/claude-skills",
+      "keywords": ["cricket", "cricbay", "umpire", "player-of-the-match", "writing"],
+      "category": "productivity",
+      "skills": ["./skills/cricbay-pom-report"]
     }
   ]
 }

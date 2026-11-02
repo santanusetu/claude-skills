@@ -1,0 +1,24 @@
+{
+  "skill_name": "cricbay-pom-report",
+  "setup": "Run scorecard.py with --html tests/cricbay-pom-report/fixtures/no-report.html instead of a live id. Every team and player in the fixtures is invented.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "i umpired this game https://www.cricbay.com/scorecard/12345 , write the player of the match report",
+      "expected_output": "A draft of about 100 to 200 words in one code block for Asha Rao. It names Ben Cole's hat-trick as the rival case, cites the 2 wickets in the 9th over and the wicket maiden in the 17th, and adds no claim about the pitch or conditions. A check-list follows the block. Nothing is posted.",
+      "files": ["tests/cricbay-pom-report/fixtures/no-report.html"]
+    },
+    {
+      "id": 2,
+      "prompt": "can you do the PoM write-up for scorecard 12345",
+      "expected_output": "Notices that a report signed by Nora Wells already exists, shows it, and asks whether a new one is still wanted before drafting.",
+      "files": ["tests/cricbay-pom-report/fixtures/with-report.html"]
+    },
+    {
+      "id": 3,
+      "prompt": "write the pom report for cricbay game 12345",
+      "expected_output": "Reports that the game has no scorecard yet and stops, without inventing a report.",
+      "files": ["tests/cricbay-pom-report/fixtures/not-played.html"]
+    }
+  ]
+}

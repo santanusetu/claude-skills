@@ -2,14 +2,14 @@
 
 <p align="center">
   <b>Small Claude Code skills that do one job well.</b><br>
-  <sub>Each one is tested, documented, and runs entirely on your machine.</sub>
+  <sub>Each one is tested and documented, and does its work on your machine.</sub>
 </p>
 
 <p align="center">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
   <img alt="Claude Code" src="https://img.shields.io/badge/Claude%20Code-plugin-8A3FFC.svg">
   <a href="https://github.com/santanusetu/claude-skills/actions/workflows/test.yml"><img alt="Tests" src="https://github.com/santanusetu/claude-skills/actions/workflows/test.yml/badge.svg"></a>
-  <img alt="Skills" src="https://img.shields.io/badge/skills-1-lightgrey.svg">
+  <img alt="Skills" src="https://img.shields.io/badge/skills-2-lightgrey.svg">
 </p>
 
 ---
@@ -19,12 +19,14 @@
 | Skill | What it does |
 |---|---|
 | **[session-finder](#session-finder)** | Find a past Claude Code session and get back into it, with 1-click resume |
+| **[cricbay-pom-report](#cricbay-pom-report)** | Draft a Player of the Match report for a CricBay game from its scorecard |
 
 ## Install
 
 ```bash
 claude plugin marketplace add santanusetu/claude-skills
 claude plugin install session-finder@claude-skills --scope user
+claude plugin install cricbay-pom-report@claude-skills --scope user
 ```
 
 If you'd rather not use plugins, copy the folder in directly:
@@ -122,6 +124,75 @@ python3 -m unittest discover -s tests/session-finder
 ```
 
 24 tests run against fictional sessions, covering transcript parsing, open-session detection and the HTML page.
+
+---
+
+# cricbay-pom-report
+
+```
+/cricbay-pom-report 12345
+i umpired this game, write the player of the match report: https://www.cricbay.com/scorecard/12345
+who should be PoM in this game?
+```
+
+After a [CricBay](https://www.cricbay.com) game the umpires write a Player of the Match report, and the form warns that a one-liner may be deleted. What makes a report convincing is the detail: who was batting together, what was needed when a wicket fell, whether 3 wickets came with no run added. All of that is on the scorecard, but it takes a while to work out and it's easy to get wrong.
+
+`cricbay-pom-report` reads the scorecard, works those numbers out and drafts the report, ready to paste. You check it and add what only an umpire saw.
+
+### What you get
+
+A draft in one code block, followed by a short list of things to check:
+
+```
+Asha Rao and Ben Cole were the 2 main contenders for Player of the Match in this
+low-scoring quarter-final. Ben's 4/20 ended the Harbor Hawks innings with a hat-trick,
+but Asha's 3/12 decided the chase. Mill Creek were 20/1 when Asha took 2 wickets in the
+9th over without a run added, and a wicket maiden in the 17th left them too much to do...
+```
+
+*(All names here are invented.)*
+
+### How it works
+
+```mermaid
+flowchart LR
+    A[You give a scorecard<br>id or link] --> B[scorecard.py renders<br>the page in headless Chrome]
+    B --> C[It computes partnerships,<br>clusters, hat-tricks,<br>and the chase equation]
+    C --> D[Claude picks out what<br>decided the game]
+    D --> E[A draft for you<br>to check and paste]
+```
+
+1. **A Python script collects the facts.** The site is a JavaScript app, so the script renders it in headless Chrome and parses the page.
+2. **Claude writes the report.** It names the contenders, walks through both innings and explains the pick, using the invented sample reports that ship with the skill for tone and length.
+3. **You post it.** The skill never logs in or submits anything.
+
+**Details that matter:**
+- **It only states what the card shows.** It wasn't at the game, so the pitch, the conditions and the good catches are left for you to add.
+- **It respects the umpires' decision.** If a PoM is already set, it writes the case for that player. If not, it proposes one and asks you first.
+- **It checks for an existing report**, so you don't overwrite the other umpire's work.
+
+### Privacy
+
+- **It reads 1 public page: the scorecard you give it.** It uses a throwaway browser profile with no login, and no other CricBay page is opened.
+- **Your request stays local.** The script parses the page on your machine and sends nothing to CricBay beyond loading that page.
+- **Nothing is posted.** The report goes out under your name, so you paste it yourself.
+
+### Requirements and limitations
+
+- Python 3.8+, Claude Code, and Chrome or Chromium. Set `CHROME_PATH` if yours is somewhere unusual.
+- Relies on CricBay's page layout, which is not a public API, so a site redesign can break it.
+- The card names bowlers only for wickets and powerplay overs, so the skill can't say who bowled every over.
+- Balls left assumes a 20-over chase.
+
+### Tests
+
+```bash
+python3 -m unittest discover -s tests/cricbay-pom-report
+```
+
+25 tests run against fictional scorecards, covering page parsing, the derived numbers, the error cases and the 1-page limit.
+
+---
 
 ## Contributing
 
